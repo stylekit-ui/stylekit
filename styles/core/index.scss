@@ -171,16 +171,16 @@ $reset-text-align: map.get($compiled-config, theme, reset, text-align);
 $reset-spacing: map.get($compiled-config, theme, reset, spacing);
 
 // Select data source
-$breakpoints: if($breakpoints != null, $breakpoints, $reset-breakpoints);
-$colors: if($colors != null, $colors, $reset-colors);
-$font-family: if($font-family != null, $font-family, $reset-font-family);
-$font-size: if($font-size != null, $font-size, $reset-font-size);
-$font-weight: if($font-weight != null, $font-weight, $reset-font-weight);
-$letter-spacing: if($letter-spacing != null, $letter-spacing, $reset-letter-spacing);
+$breakpoints: if(length($reset-breakpoints) > 0, $reset-breakpoints, $breakpoints);
+$colors: if(length($reset-colors) > 0, $reset-colors, $colors);
+$font-family: if(length($reset-font-family) > 0, $reset-font-family, $font-family);
+$font-size: if(length($reset-font-size) > 0, $reset-font-size, $font-size);
+$font-weight: if(length($reset-font-weight) > 0, $reset-font-weight, $font-weight);
+$letter-spacing: if(length($reset-letter-spacing) > 0, $reset-letter-spacing, $letter-spacing);
 $line-height: if($line-height != null, $line-height, $reset-line-height);
-$outline: if($outline != null, $outline, $reset-outline);
-$text-align: if($text-align != null, $text-align, $reset-text-align);
-$spacing: if($spacing != null, $spacing, $reset-spacing);
+$outline: if(length($reset-outline) > 0, $reset-outline, $outline);
+$text-align: if(length($reset-text-align) > 0, $reset-text-align, $text-align);
+$spacing: if(length($reset-spacing) > 0, $reset-spacing, $spacing);
 
 // -----------------------------------------------------------------------------
 // Mixins
