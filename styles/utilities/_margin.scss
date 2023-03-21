@@ -1,0 +1,56 @@
+@use "../core";
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// Margin block
+// -----------------------------------------------------------------------------
+
+$margin-block: map.get(core.$compiled-config, utilities, margin, block);
+
+@layer utilities {
+	.#{core.$prefix}margin-block {
+		--#{core.$prefix}margin-block: #{$margin-block};
+		
+		margin-block: var(--#{core.$prefix}margin-block);
+		
+		// @if (core.$breakpoints != null) {
+		// 	$prev-breakpoint: null;
+		// 	@each $breakpoint in map.keys(core.$breakpoints) {
+		// 		$namespace: #{core.$prefix}#{$breakpoint};
+		// 		@include core.media($breakpoint) {
+		// 			--#{$namespace}-margin-block: var(--#{$prev-breakpoint}margin-block);
+		// 			
+		// 			margin-block: var(--#{$namespace}-margin-block);
+		// 		}
+		// 		$prev-breakpoint: #{$namespace}-;
+		// 	}
+		// }
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Margin inline
+// -----------------------------------------------------------------------------
+
+$margin-inline: map.get(core.$compiled-config, utilities, margin, inline);
+
+@layer utilities {
+	.#{core.$prefix}margin-inline {
+		--#{core.$prefix}margin-block: #{$margin-inline};
+		
+		margin-inline: var(--#{core.$prefix}margin-inline);
+		
+		// @if (core.$breakpoints != null) {
+		// 	$prev-breakpoint: null;
+		// 	@each $breakpoint in map.keys(core.$breakpoints) {
+		// 		$namespace: #{core.$prefix}#{$breakpoint};
+		// 		@include core.media($breakpoint) {
+		// 			--#{$namespace}-margin-inline: var(--#{$prev-breakpoint}margin-inline);
+		// 			
+		// 			margin-inline: var(--#{$namespace}-margin-inline);
+		// 		}
+		// 		$prev-breakpoint: #{$namespace}-;
+		// 	}
+		// }
+	}
+}

@@ -1,0 +1,301 @@
+@use 'sass:map';
+@use 'functions';
+
+// -----------------------------------------------------------------------------
+// User config
+// -----------------------------------------------------------------------------
+
+$config: () !default;
+
+// -----------------------------------------------------------------------------
+// Default config
+// -----------------------------------------------------------------------------
+
+$default-config: (
+  responsive: false,
+  prefix: null,
+  theme: (
+    breakpoints: (
+      sm: 30em,
+      md: 60em,
+      lg: 90em
+    ),
+    colors: (
+      white: #ffffff,
+      black: #000000
+    ),
+    font-family: (
+      sans: 'system-ui, sans-serif',
+      serif: 'serif',
+      mono: 'monospace'
+    ),
+    font-size: (
+      nano: 0.75rem,
+      tiny: 1rem,
+      small: 1.5rem,
+      medium: 2rem,
+      large: 4rem,
+      mega: 6rem
+    ),
+    font-weight: (
+      thin: 300,
+      regular: 400,
+      bold: 700
+    ),
+    letter-spacing: (
+      narrow: -0.025em,
+      wide: 0.025em
+    ),
+    line-height: (
+      none: 1,
+      tight: 1.25,
+      loose: 2
+    ),
+    outline: (
+      width: 0.125rem,
+      type: solid,
+      color: currentcolor
+    ),
+    text-align: (
+      left: left,
+      center: center,
+      right: right
+    ),
+    spacing: (
+      nano: 0.5rem,
+      tiny: 1rem,
+      small: 1.5rem,
+      medium: 2rem,
+      large: 4rem,
+      mega: 8rem
+    ),
+    reset: (
+      breakpoints: (),
+      colors: (),
+      font-family: (),
+      font-size: (),
+      font-weight: (),
+      letter-spacing: (),
+      line-height: (),
+      outline: (),
+      spacing: ()
+    )
+  ),
+  layouts: (
+    flow: (
+      space: var(--space-small)
+    ),
+    frame: (
+      object-x: 50%,
+      object-y: 50%,
+      object-fit: cover,
+      ratio: '1/1'
+    ),
+    pin: (
+      z-index: 1
+    ),
+    wrap: (
+      width: 100%,
+      max-width: 90rem,
+      margin: auto,
+      padding: clamp(1rem, 5vw, 1.5rem)
+    ),
+  ),
+  utilities: (
+    atoms: (),
+    margin: (
+      block: var(--space-small),
+      inline: var(--space-small)
+    ),
+    padding: (
+      block: var(--space-small),
+      inline: var(--space-small)
+    ),
+    stretch-link: (
+      z-index: 1
+    ),
+    transform: (
+      origin: center,
+      rotate: 0deg,
+      scale: 1,
+      skew: 0deg,
+      translate-x: 0,
+      translate-y: 0,
+      translate-z: 0
+    ),
+    transition: (
+      property: all,
+      duration: 200ms,
+      delay: 0ms,
+      easing: cubic-bezier(0.5, 0, 0.25, 1)
+    ),
+    line-clamp: 1
+  ),
+  variables: ()
+) !default;
+
+// -----------------------------------------------------------------------------
+// Config compiler
+// -----------------------------------------------------------------------------
+
+$compiled-config: map.deep-merge($default-config, $config);
+
+// -----------------------------------------------------------------------------
+// Fetch variables
+// -----------------------------------------------------------------------------
+
+// Default data
+$all-responsive: map.get($compiled-config, responsive);
+$prefix: map.get($compiled-config, prefix);
+$breakpoints: functions.map-sort(map.get($compiled-config, theme, breakpoints));
+$colors: map.get($compiled-config, theme, colors);
+$font-family: map.get($compiled-config, theme, font-family);
+$font-size: map.get($compiled-config, theme, font-size);
+$font-weight: map.get($compiled-config, theme, font-weight);
+$letter-spacing: map.get($compiled-config, theme, letter-spacing);
+$line-height: map.get($compiled-config, theme, line-height);
+$outline: map.get($compiled-config, theme, outline);
+$text-align: map.get($compiled-config, theme, text-align);
+$spacing: map.get($compiled-config, theme, spacing);
+
+// Reset data
+$reset-breakpoints: functions.map-sort(map.get($compiled-config, theme, reset, breakpoints));
+$reset-colors: map.get($compiled-config, theme, reset, colors);
+$reset-font-family: map.get($compiled-config, theme, reset, font-family);
+$reset-font-size: map.get($compiled-config, theme, reset, font-size);
+$reset-font-weight: map.get($compiled-config, theme, reset, font-weight);
+$reset-letter-spacing: map.get($compiled-config, theme, reset, letter-spacing);
+$reset-line-height: map.get($compiled-config, theme, reset, line-height);
+$reset-outline: map.get($compiled-config, theme, reset, outline);
+$reset-text-align: map.get($compiled-config, theme, reset, text-align);
+$reset-spacing: map.get($compiled-config, theme, reset, spacing);
+
+// Select data source
+$breakpoints: if($breakpoints != null, $breakpoints, $reset-breakpoints);
+$colors: if($colors != null, $colors, $reset-colors);
+$font-family: if($font-family != null, $font-family, $reset-font-family);
+$font-size: if($font-size != null, $font-size, $reset-font-size);
+$font-weight: if($font-weight != null, $font-weight, $reset-font-weight);
+$letter-spacing: if($letter-spacing != null, $letter-spacing, $reset-letter-spacing);
+$line-height: if($line-height != null, $line-height, $reset-line-height);
+$outline: if($outline != null, $outline, $reset-outline);
+$text-align: if($text-align != null, $text-align, $reset-text-align);
+$spacing: if($spacing != null, $spacing, $reset-spacing);
+
+// -----------------------------------------------------------------------------
+// Mixins
+// -----------------------------------------------------------------------------
+
+// Media
+// Wrap the content in a media breakpoint.
+// @param {String} $size - Key from the map with breakpoints or a custom set width
+// @param {String} $type - Breakpoint type min or max
+// -----------------------------------------------------------------------------
+
+@mixin media($size, $type: min) {
+  @if map.has-key($breakpoints, $size) {
+    $size: map.get($breakpoints, $size);
+  } @else {
+    $size: $size;
+  }
+  
+  @media (#{$type}-width: $size) {
+    @content;
+  }
+}
+
+// Generate variables
+// Loop each item in the $variables object and create matching variables.
+// @param {Map} $data - Config object with data map
+// -----------------------------------------------------------------------------
+
+@mixin generate-variables($data) {
+  $variables: map.get($data, variables);
+  
+  @each $id, $collection in $variables {
+    $variable: map.get($collection, 'variable');
+    $variants: map.get($collection, 'variants');
+    
+    @each $key, $value in $variants {
+      --#{$prefix}#{$variable}-#{'' + $key}: #{$value};
+    }
+  }
+}
+
+// Generate utility classes
+// Loop each item in the $atoms object and create matching utility classes.
+// @param {Map} $data - Config object with data map
+// -----------------------------------------------------------------------------
+
+@mixin generate-utilities($data) {
+  $atoms: map.get($data, utilities, atoms);
+
+  @each $id, $collection in $atoms {
+    $responsive: map.get($collection, 'responsive');
+    $shorthand: map.get($collection, 'shorthand');
+    $variable: map.get($collection, 'variable');
+    $properties: map.get($collection, 'properties');
+    $variants: map.get($collection, 'variants');
+    $classname: null;
+    
+    @each $key, $value in $variants {
+      $classname: #{$prefix}#{$shorthand}-#{'' + $key};
+      
+      .#{$classname} {
+        @if (type-of($value) == 'map') {
+          @each $deep-key, $deep-value in $value {
+            #{$deep-key}: $deep-value;
+          }
+        } @else {
+          @each $property in $properties {
+            @if ($variable != null and not
+              (
+                $key == transparent or
+                $key == current or
+                $key == auto or
+                $key == none
+              )
+            ) {
+              #{$property}: var(--#{$prefix}#{$variable}-#{'' + $key});
+            } @else {
+              #{$property}: $value;
+            }
+          }
+        }
+      }
+      
+      @if ($breakpoints != null) {
+        @if ($responsive == true or $all-responsive == true) {
+          @each $breakpoint in map.keys($breakpoints) {
+            @include media($breakpoint) {
+              $classname: #{$prefix}#{$breakpoint}-#{$shorthand}-#{'' + $key};
+              
+              .#{$classname} {
+                @if (type-of($value) == 'map') {
+                  @each $deep-key, $deep-value in $value {
+                    #{$deep-key}: $deep-value;
+                  }
+                } @else {
+                  @each $property in $properties {
+                    @if ($variable != null and not
+                      (
+                        $key == transparent or
+                        $key == current or
+                        $key == auto or
+                        $key == none
+                      )
+                    ) {
+                      #{$property}: var(--#{$prefix}#{$variable}-#{'' + $key});
+                    } @else {
+                      #{$property}: $value;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

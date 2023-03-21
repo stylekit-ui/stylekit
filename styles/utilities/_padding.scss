@@ -1,0 +1,56 @@
+@use "../core";
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// Padding block
+// -----------------------------------------------------------------------------
+
+$padding-block: map.get(core.$compiled-config, utilities, padding, block);
+
+@layer utilities {
+	.#{core.$prefix}padding-block {
+		--#{core.$prefix}padding-block: #{$padding-block};
+		
+		padding-block: var(--#{core.$prefix}padding-block);
+		
+		// @if (core.$breakpoints != null) {
+		// 	$prev-breakpoint: null;
+		// 	@each $breakpoint in map.keys(core.$breakpoints) {
+		// 		$namespace: #{core.$prefix}#{$breakpoint};
+		// 		@include core.media($breakpoint) {
+		// 			--#{$namespace}-padding-block: var(--#{$prev-breakpoint}padding-block);
+		// 			
+		// 			padding-block: var(--#{$namespace}-padding-block);
+		// 		}
+		// 		$prev-breakpoint: #{$namespace}-;
+		// 	}
+		// }
+	}
+}
+
+// -----------------------------------------------------------------------------
+// Padding inline
+// -----------------------------------------------------------------------------
+
+$padding-inline: map.get(core.$compiled-config, utilities, padding, inline);
+
+@layer utilities {
+	.#{core.$prefix}padding-inline {
+		--#{core.$prefix}padding-inline: #{$padding-inline};
+		
+		padding-inline: var(--#{core.$prefix}padding-inline);
+		
+		// @if (core.$breakpoints != null) {
+		// 	$prev-breakpoint: null;
+		// 	@each $breakpoint in map.keys(core.$breakpoints) {
+		// 		$namespace: #{core.$prefix}#{$breakpoint};
+		// 		@include core.media($breakpoint) {
+		// 			--#{$namespace}-padding-inline: var(--#{$prev-breakpoint}padding-inline);
+		// 			
+		// 			padding-inline: var(--#{$namespace}-padding-inline);
+		// 		}
+		// 		$prev-breakpoint: #{$namespace}-;
+		// 	}
+		// }
+	}
+}

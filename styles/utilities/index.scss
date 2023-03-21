@@ -1,0 +1,16 @@
+@use "../core";
+
+// Utilities
+@use 'hide-visually';
+@use 'line-clamp';
+@use 'margin';
+@use 'padding';
+@use 'stretch-link';
+@use 'transform';
+@use 'transition';
+@use 'atoms';
+
+// Constructor
+@layer utilities {
+  @include core.generate-utilities(core.$compiled-config);
+}

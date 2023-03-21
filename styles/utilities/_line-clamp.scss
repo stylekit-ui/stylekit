@@ -1,0 +1,19 @@
+@use "../core";
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// Line clamp
+// -----------------------------------------------------------------------------
+
+$line-clamp: map.get(core.$compiled-config, utilities, line-clamp);
+
+@layer utilities {
+  .#{core.$prefix}line-clamp {
+    --#{core.$prefix}line-clamp: #{$line-clamp};
+  
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--#{core.$prefix}line-clamp);
+  }
+}

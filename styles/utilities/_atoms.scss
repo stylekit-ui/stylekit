@@ -1,0 +1,83 @@
+@use "../core";
+@use "../core/functions";
+@use "sass:map";
+
+$config: (
+  utilities: (
+    atoms: (
+      background-color: (
+        responsive: false,
+        shorthand: color-background,
+        variable: color,
+        properties: (background-color),
+        variants: (
+          functions.merge(
+            core.$colors,
+            (
+              transparent: transparent,
+              current: currentcolor
+            )
+          )
+        )
+      ),
+      color: (
+        responsive: false,
+        shorthand: color-text,
+        variable: color,
+        properties: (color),
+        variants: (
+          functions.merge(
+            core.$colors,
+            (
+              transparent: transparent,
+              current: currentcolor
+            )
+          )
+        )
+      ),
+      font-family: (
+        responsive: false,
+        shorthand: font,
+        variable: font,
+        properties: (font-family),
+        variants: (core.$font-family)
+      ),
+      font-size: (
+        responsive: false,
+        shorthand: font,
+        variable: font,
+        properties: (font-size),
+        variants: (core.$font-size)
+      ),
+      font-weight: (
+        responsive: false,
+        shorthand: font,
+        variable: font,
+        properties: (font-weight),
+        variants: (core.$font-weight)
+      ),
+      letter-spacing: (
+        responsive: false,
+        shorthand: tracking,
+        variable: tracking,
+        properties: (letter-spacing),
+        variants: (core.$letter-spacing)
+      ),
+      line-height: (
+        responsive: false,
+        shorthand: leading,
+        variable: leading,
+        properties: (line-height),
+        variants: (core.$line-height)
+      ),
+      text-align: (
+        responsive: false,
+        shorthand: text,
+        properties: (text-align),
+        variants: (core.$text-align)
+      ),
+    )
+  )
+);
+
+core.$compiled-config: map.deep-merge(core.$compiled-config, $config);

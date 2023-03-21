@@ -1,0 +1,26 @@
+@use "../core";
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// Wrap
+// Wrap and align content with padding.
+// -----------------------------------------------------------------------------
+
+$width: map.get(core.$compiled-config, layouts, wrap, width);
+$max-width: map.get(core.$compiled-config, layouts, wrap, max-width);
+$margin: map.get(core.$compiled-config, layouts, wrap, margin);
+$padding: map.get(core.$compiled-config, layouts, wrap, padding);
+
+@layer layouts {
+  .#{core.$prefix}layout-wrap {
+    --#{core.$prefix}width: #{$width};
+    --#{core.$prefix}max-width: #{$max-width};
+	  --#{core.$prefix}margin-inline: #{$margin};
+    --#{core.$prefix}padding-inline: #{$padding};
+  
+    width: var(--#{core.$prefix}width);
+    max-width: var(--#{core.$prefix}max-width);
+	  margin-inline: var(--#{core.$prefix}margin-inline);
+	  padding-inline: var(--#{core.$prefix}padding-inline);
+  }
+}

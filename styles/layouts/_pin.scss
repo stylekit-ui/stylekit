@@ -1,0 +1,26 @@
+@use "../core";
+@use 'sass:map';
+
+// -----------------------------------------------------------------------------
+// Pin
+// -----------------------------------------------------------------------------
+
+$z-index: map.get(core.$compiled-config, layouts, pin, z-index);
+
+@layer layouts {
+  .#{core.$prefix}layout-pin {
+    --#{core.$prefix}position: relative;
+    --#{core.$prefix}top: auto;
+    --#{core.$prefix}right: auto;
+    --#{core.$prefix}bottom: auto;
+    --#{core.$prefix}left: auto;
+    --#{core.$prefix}z-index: #{$z-index};
+    
+    position: var(--#{core.$prefix}position);
+    top: var(--#{core.$prefix}top);
+    right: var(--#{core.$prefix}right);
+    bottom: var(--#{core.$prefix}bottom);
+    left: var(--#{core.$prefix}left);
+    z-index: var(--#{core.$prefix}z-index);
+  }
+}
