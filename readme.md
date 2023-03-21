@@ -297,11 +297,10 @@ Wrap creates a responsive wrapping layout that group, pad and align content with
 
 Variable | Default | Options | Breakpoints | Description
 ---|---|---|---|---
-`--width` | `calc(100% - var(--padding))` | `<length>`, `<percentage>`, `max-content`, `min-content`, `fit-content(<length-percentage>)`, `auto` | `false` | Set the `width` property. A calc function is used by default to remove the padding from the the width through the `--padding` variable.
+`--width` | `100%` | `<length>`, `<percentage>`, `max-content`, `min-content`, `fit-content(<length-percentage>)`, `auto` | `false` | Set the `width` property.
 `--max-width` | `80rem` | `<length>`, `<percentage>`, `max-content`, `min-content`, `fit-content(<length-percentage>)`, `none` | `false` | Set the `max-width` property.
-`--margin-right` | `auto` | `<length>`, `<percentage>`, `auto` | `false` | Set the `object-fit` property.
-`--margin-left` | `auto` | `<length>`, `<percentage>`, `auto` | `false` | Set the `spect-ratio` property.
-`--padding` | `clamp(2rem, 10vw, 4rem)` | `<length>`, `<percentage>` | `false` | Set the padding value to be used in the calc function for the `--width` variable. A clamp function is used by default.
+`--margin-inline` | `auto` | `<length>`, `<percentage>`, `auto` | `false` | Set the `margin-inline` property.
+`--padding-inline` | `clamp(1rem, 5vw, 1.5rem)` | `<length>`, `<percentage>` | `false` | Set the `padding-inline` property.
 
 #### Usage
 
